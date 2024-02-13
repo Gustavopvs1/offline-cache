@@ -35,16 +35,15 @@ if (window.caches) {
             'logo512.png',
             'pages/offline.html',
         ]).then(() => {
-            // intercept files
-            cache.put('index.html', new Response('file intercepted'))
+            // delete a file
+            cache.delete('logo192.png')
         })
-        // get files in cache
-        cache.keys().then(keys => {
-            console.log('Files in cache', keys);
-        })
-        // get all caches
-        caches.keys().then(keys => {
-            console.log('All caches', keys);
+        // verify if a file exists in cache
+        cache.match('index.html').then(response => {
+            response.text().then(console.log)
+            if (response) {
+                console.log('File exists in cache', response);
+            }
         })
     })
 }
