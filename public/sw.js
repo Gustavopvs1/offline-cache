@@ -1,7 +1,18 @@
-self.addEventListener('fetch', event => {
-    const offilineResponse = new Response('pages/offline.html', {
+self.addEventListener('install', event => {
+    const cacheAppShell = caches.open('cache-1').then(cache => {
+        return cache.addAll([
+            '/',
+            '/index.html',
+            '/js/app.js',
+            '/sw.js',
+            'static/js/bundle.js',
+            'favicon.ico',
+        ]);
     });
-    const resp = fetch(event.request)
-    .catch(() => offilineResponse)
-    event.respondWith(resp)
-})
+    event.waitUntil(cacheAppShell);
+});
+
+self.addEventListener('fetch', event => {
+    // Cache Only, no network request
+    event.respondWith(caches.match(event.request));
+});
