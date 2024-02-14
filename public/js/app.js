@@ -3,24 +3,12 @@ if (navigator.serviceWorker) {
 }
 
 if (window.caches) {
-    // console.log('caches is supported');
-    // create a new cache
     caches.open('test-1').then(cache => {
 
     })
     caches.open('test-2').then(cache => {
     
     })
-
-    // verify if a cache exists
-    // caches.has('test-1').then(hasCache => {
-    //     console.log('Has cache test-1', hasCache);
-    // })
-    // caches.has('test-3').then(hasCache => {
-    //     console.log('Has cache test-3', hasCache);
-    // })
-
-    // delete a cache
     caches.delete('test-1').then(deleted => {
         console.log('Cache test-1 deleted', deleted);
     })
